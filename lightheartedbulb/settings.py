@@ -25,7 +25,7 @@ SECRET_KEY = '!))uq6diub_oiq$qefyj4x)+(ex&f=*7q+r(a*s0csprw*6txk'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['iot-f20-g3.herokuapp.com']
 
 
 # Application definition
