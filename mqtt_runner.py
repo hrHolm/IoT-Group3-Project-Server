@@ -1,13 +1,17 @@
 import paho.mqtt.client as mqtt
 import os
 from urllib.parse import urlparse
+import json
 
 # Define event callbacks
 def on_connect(client, userdata, flags, rc):
     print("rc: " + str(rc))
 
 def on_message(client, obj, msg):
-    print(msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
+    m_decode = str(msg.payload.decode("utf-8", "ignore"))
+    message = json.loads(m_decode)
+    #print(msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
+    print(message)
 
 def on_publish(client, obj, mid):
     print("mid: " + str(mid))
@@ -31,7 +35,8 @@ mqttc.on_subscribe = on_subscribe
 # Parse CLOUDMQTT_URL (or fallback to localhost)
 url_str = os.environ.get('CLOUDMQTT_URL', 'mqtt://localhost:1883')
 url = urlparse(url_str)
-topic = url.path[1:] or 'test'
+topic = 'test'
+topic2 = 'pycom'
 
 # Connect
 mqttc.username_pw_set(url.username, url.password)
@@ -41,7 +46,8 @@ mqttc.connect(url.hostname, url.port)
 mqttc.subscribe(topic, 0)
 
 # Publish a message
-mqttc.publish(topic, "my message")
+msg = json.dumps("my message")
+mqttc.publish(topic2, msg)
 
 # Continue the network loop, exit when an error occurs
 rc = 0
