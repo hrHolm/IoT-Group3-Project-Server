@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<form action="set-setpoint/" method="post">
+    {% csrf_token %}
+    <label for="device_id">Device ID: </label>
+    <input id="device_id" type="text" name="device_id" value="{{ current_id }}">
+    <label for="setpoint_value">Setpoint value: </label>
+    <input id="setpoint_value" type="text" name="setpoint_value" value="{{ current_setpoint }}">
+    <input type="submit" value="OK">
+</form>
+<form action="set-intensity/" method="post">
+    {% csrf_token %}
+    <label for="device_id">Device ID: </label>
+    <input id="device_id" type="text" name="device_id" value="{{ current_id }}">
+    <label for="intensity_value">Intensity value: </label>
+    <input id="intensity_value" type="text" name="intensity_value" value="{{ current_intensity }}">
+    <input type="submit" value="OK">
+</form>
+{% endblock %}
