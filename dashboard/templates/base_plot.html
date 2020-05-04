@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}Plot{% endblock %}
+
+{% block content %}
+{% for entry in light_values %}
+    <h2>{{ entry.title }}</h2>
+    <p>{{ entry.body }}</p>
+{% endfor %}
+{% endblock %}

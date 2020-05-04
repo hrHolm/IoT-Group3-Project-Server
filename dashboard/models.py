@@ -13,3 +13,8 @@ class SetpointData(models.Model):
     device = models.ForeignKey(Device, on_delete=models.CASCADE)
     timestamp = models.FloatField()
     value = models.FloatField()
+
+class IntensityData(models.Model):
+    device = models.ForeignKey(Device, on_delete=models.CASCADE)
+    timestamp = models.FloatField()
+    value = models.FloatField()
