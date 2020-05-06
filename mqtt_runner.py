@@ -46,7 +46,12 @@ mqttc.connect(url.hostname, url.port)
 mqttc.subscribe(topic, 0)
 
 # Publish a message
-msg = json.dumps("my message")
+datadict = {
+    "intensity": 95,
+    "setpoint": 250
+}
+
+msg = json.dumps(datadict)
 mqttc.publish(topic2, msg)
 
 # Continue the network loop, exit when an error occurs
