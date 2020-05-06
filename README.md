@@ -1,3 +1,9 @@
-This sample app shows how to connect with [mosquitto](https://pypi.python.org/pypi/mosquitto/) to [CloudMQTT](http://www.cloudmqtt.com) and both publish and subscribe messages. 
+# Setup
+You need to setup an environmental variable on your computer called 'CLOUDMQTT_URL', which holds the authentication and host info of the MQTT broker. 
 
-    $ pip install -r requirements.txt
+**Important**: You must sign out and in again on your computer before any changes to your environmental values will take effect!
+# Development
+To avoid multiple mqtt callbacks happening at once:
+```bash
+python manage.py runserver --noreload
+```
