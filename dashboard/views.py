@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
+import json
 
 from .forms import * 
 from . import services
@@ -24,7 +25,7 @@ def form_response(request):
             'device_id': device_id,
             'setpoint_value': setpoint_value
             }
-            services.pub_data_to_mqtt(form.cleaned_data)
+            services.pub_data_to_mqtt(topic="device/{id}/setpoint".format(id=device_id), message=json.dumps({'setpoint_value': setpoint_value}))
             #---------- redirect to a new URL:
             form = SetpointForm()
             return HttpResponseRedirect('/dashboard/success/')
@@ -51,7 +52,7 @@ def set_intensity(request):
             'device_id': device_id,
             'intensity_value': intensity_value
             }
-            services.pub_data_to_mqtt(form.cleaned_data)
+            services.pub_data_to_mqtt(topic="device/{id}/intensity".format(id=device_id), message=json.dumps({'intensity_value': intensity_value}))
             #---------- redirect to a new URL:
             form = IntensityForm()
             return HttpResponseRedirect('/dashboard/success/')
