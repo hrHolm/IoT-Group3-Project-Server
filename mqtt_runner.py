@@ -33,10 +33,11 @@ mqttc.on_subscribe = on_subscribe
 #mqttc.on_log = on_log
 
 # Parse CLOUDMQTT_URL (or fallback to localhost)
+
 url_str = os.environ.get('CLOUDMQTT_URL', 'mqtt://localhost:1883')
 url = urlparse(url_str)
-topic = 'test'
-topic2 = 'pycom'
+topic = 'device/1'
+topic2 = 'setpoint'
 
 # Connect
 mqttc.username_pw_set(url.username, url.password)
@@ -47,8 +48,8 @@ mqttc.subscribe(topic, 0)
 
 # Publish a message
 datadict = {
-    "intensity": 95,
-    "setpoint": 250
+    "intensity_value": 17,
+    "setpoint_value": 250
 }
 
 msg = json.dumps(datadict)
