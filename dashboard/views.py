@@ -2,9 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 import json
 
-from plotly.offline import plot
-from plotly.graph_objs import Scatter
-
 from .forms import * 
 from . import services
 # Create your views here.
@@ -69,11 +66,29 @@ def set_intensity(request):
 def success(request):
     return render(request, 'success.html')
 
+
+from plotly.offline import plot
+from plotly.graph_objs import Scatter
+from plotly.subplots import make_subplots
+
 def plot_values(request):
     x_data = [0,1,2,3]
-    y_data = [x**2 for x in x_data]
-    fig = [Scatter(x=x_data, y=y_data,
-                        mode='lines', name='test',
-                        opacity=0.8, marker_color='green')]
+    y1_data = [x**2 for x in x_data]
+    y2_data = [x**4 for x in x_data]
+
+    fig = make_subplots(shared_yaxes=True, shared_xaxes=True)
+
+    fig.add_trace(Scatter(x=x_data, y=y1_data,
+                        mode='lines', name='Monitored Light Level',
+                        opacity=0.8, marker_color='green'))
+    fig.add_trace(Scatter(x=x_data, y=y2_data,
+                        mode='lines', name='Setpoint',
+                        opacity=0.8, marker_color='red'))
+    # Set x-axis title
+    fig.update_xaxes(title_text="Timestamp [ns]")
+
+    # Set y-axes titles
+    fig.update_yaxes(title_text="Light Value [lx]")
+
     plot_div = plot(fig, output_type='div', include_plotlyjs=False, show_link=False, link_text="")
     return render(request, "base_plot.html", context={'plot_div': plot_div})
