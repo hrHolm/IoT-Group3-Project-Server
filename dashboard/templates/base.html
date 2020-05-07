@@ -2,15 +2,18 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="style.css">
-    <title>{% block title %}My amazing site{% endblock %}</title>
+    <title>{% block title %}Lighthearted Bulb{% endblock %}</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
 </head>
 
 <body>
     <div id="sidebar">
         {% block sidebar %}
         <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/plot/">Plot</a></li>
+            <li><a href="/dashboard/">Dashboard</a></li>
+            <li><a href="/dashboard/plot/">Historical Values</a></li>
         </ul>
         {% endblock %}
     </div>

@@ -6,5 +6,6 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('set-setpoint/', views.form_response),
     path('set-intensity/', views.set_intensity),
-    path('success/', views.success)
+    path('success/', views.success),
+    path('plot/', views.plot_values)
 ]

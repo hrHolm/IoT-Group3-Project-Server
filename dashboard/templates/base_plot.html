@@ -3,8 +3,7 @@
 {% block title %}Plot{% endblock %}
 
 {% block content %}
-{% for entry in light_values %}
-    <h2>{{ entry.title }}</h2>
-    <p>{{ entry.body }}</p>
-{% endfor %}
+{% autoescape off %}
+  {{ plot_div }}
+  {% endautoescape %}
 {% endblock %}
