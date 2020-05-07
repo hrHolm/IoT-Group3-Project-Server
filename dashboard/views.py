@@ -70,19 +70,30 @@ def success(request):
 from plotly.offline import plot
 from plotly.graph_objs import Scatter
 from plotly.subplots import make_subplots
+from dashboard.models import LightData
 
 def plot_values(request):
-    x_data = [0,1,2,3]
-    y1_data = [x**2 for x in x_data]
-    y2_data = [x**4 for x in x_data]
+    #x_data = [0,1,2,3]
+    #y1_data = [x**2 for x in x_data]
+    #y2_data = [x**4 for x in x_data]
+
+    x_data = []
+    y1_data = []
+    y2_data = []
+    queryset = LightData.objects.all()
+    for datum in queryset:
+        x_data.append(datum.timestamp)
+        y1_data.append(datum.value)
+        y2_data.append(datum.value * 0.8) # TODO: update data model
+
 
     fig = make_subplots(shared_yaxes=True, shared_xaxes=True)
 
     fig.add_trace(Scatter(x=x_data, y=y1_data,
-                        mode='lines', name='Monitored Light Level',
+                        mode='markers', name='Monitored Light Level',
                         opacity=0.8, marker_color='green'))
     fig.add_trace(Scatter(x=x_data, y=y2_data,
-                        mode='lines', name='Setpoint',
+                        mode='markers', name='Setpoint',
                         opacity=0.8, marker_color='red'))
     # Set x-axis title
     fig.update_xaxes(title_text="Timestamp [ns]")
