@@ -70,7 +70,7 @@ def success(request):
 from plotly.offline import plot
 from plotly.graph_objs import Scatter
 from plotly.subplots import make_subplots
-from dashboard.models import LightData
+from dashboard.models import DeviceData
 
 def plot_values(request):
     #x_data = [0,1,2,3]
@@ -80,11 +80,11 @@ def plot_values(request):
     x_data = []
     y1_data = []
     y2_data = []
-    queryset = LightData.objects.all()
+    queryset = DeviceData.objects.all()
     for datum in queryset:
         x_data.append(datum.timestamp)
-        y1_data.append(datum.value)
-        y2_data.append(datum.value * 0.8) # TODO: update data model
+        y1_data.append(datum.light_value)
+        y2_data.append(datum.setpoint_value)
 
 
     fig = make_subplots(shared_yaxes=True, shared_xaxes=True)

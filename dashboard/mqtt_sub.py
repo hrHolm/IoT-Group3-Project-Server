@@ -5,7 +5,7 @@ from datetime import datetime
 from urllib.parse import urlparse
 import logging
 
-from dashboard.models import LightData, Device
+from dashboard.models import Device, DeviceData
 
 logger = logging.getLogger("mylogger")
 
@@ -23,7 +23,13 @@ def on_message(client, userdata, message):
     
     t_convert = datetime(year=t[0], month=t[1], day=t[2], hour=t[3], minute=t[4], second=t[5], microsecond=t[6])
     logger.info(t_convert)
-    data = LightData(device_id=1, timestamp=t_convert.timestamp(), value=data_object['light_level'])
+    data = DeviceData(
+        device_id=1, 
+        timestamp=t_convert.timestamp(), 
+        light_value=data_object['light_level'], 
+        setpoint_value=data_object['setpoint'],
+        intensity_value=data_object['light_intensity']
+        )
     data.save()
 
 client = mqtt.Client()

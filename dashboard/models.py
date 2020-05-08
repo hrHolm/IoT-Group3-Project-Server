@@ -18,3 +18,10 @@ class IntensityData(models.Model):
     device = models.ForeignKey(Device, on_delete=models.CASCADE)
     timestamp = models.FloatField()
     value = models.FloatField()
+
+class DeviceData(models.Model):
+    device = models.ForeignKey(Device, on_delete=models.CASCADE)
+    timestamp = models.FloatField()
+    light_value = models.FloatField()
+    setpoint_value = models.FloatField()
+    intensity_value = models.FloatField()
