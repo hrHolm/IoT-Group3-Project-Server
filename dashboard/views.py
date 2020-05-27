@@ -25,7 +25,7 @@ def form_response(request):
             'device_id': device_id,
             'setpoint_value': setpoint_value
             }
-            services.pub_data_to_mqtt(topic="device/{id}/setpoint".format(id=device_id), message=json.dumps({'setpoint_value': setpoint_value}))
+            services.adjust_device(device_id=device_id, message=json.dumps({'setpoint_value': setpoint_value}))
             #---------- redirect to a new URL:
             form = SetpointForm()
             return HttpResponseRedirect('/dashboard/success/')
@@ -52,7 +52,7 @@ def set_intensity(request):
             'device_id': device_id,
             'intensity_value': intensity_value
             }
-            services.pub_data_to_mqtt(topic="device/{id}/intensity".format(id=device_id), message=json.dumps({'intensity_value': intensity_value}))
+            services.adjust_device(device_id=device_id, message=json.dumps({'intensity_value': intensity_value}))
             #---------- redirect to a new URL:
             form = IntensityForm()
             return HttpResponseRedirect('/dashboard/success/')
@@ -73,10 +73,6 @@ from plotly.subplots import make_subplots
 from dashboard.models import DeviceData
 
 def plot_values(request):
-    #x_data = [0,1,2,3]
-    #y1_data = [x**2 for x in x_data]
-    #y2_data = [x**4 for x in x_data]
-
     x_data = []
     y1_data = []
     y2_data = []

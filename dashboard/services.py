@@ -10,5 +10,5 @@ url_str = os.environ.get('CLOUDMQTT_URL')
 url = urlparse(url_str)
 auth_info = { 'username' : url.username, 'password' : url.password}
 
-def pub_data_to_mqtt(topic, message):
-    pub.single(topic, payload=message, hostname=url.hostname, port=url.port, auth=auth_info)
+def adjust_device(device_id, message):
+    pub.single(topic="building/1/room/1/device/{id}/adjust".format(id=device_id), payload=message, hostname=url.hostname, port=url.port, auth=auth_info)
